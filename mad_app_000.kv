@@ -1,0 +1,226 @@
+# Kivy language file for mad_app_000
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+<Label>:
+    size_hint: None,None
+    size: 200, 40
+
+<Button>:
+    font_size: 25
+    size_hint: None,None
+    size: 200, 35
+
+<TextInput>:
+    size_hint: None,None
+    size: 200, 35
+
+
+<MainWidgetsLog>
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        login_username_text_input: login_username
+        login_password_text_input: login_password
+        Label:
+            text: 'Username'
+        TextInput:
+            id: login_username
+            multiline: False
+        Label:
+            text: 'Password'
+        TextInput:
+            id: login_password
+            multiline: False
+            password: True
+        Label:
+            text: ''
+        Button:
+            id: login_login
+            text: 'Login'
+            on_release: app.verify_credentials(self.parent.login_username_text_input.text,self.parent.login_password_text_input.text)
+        Label:
+            text: ''
+        Button:
+            id: login_create
+            text: 'Create Account'
+            on_release: app.root.current = 'createacctscreen'
+
+<MainWidgetsMainAcct>:
+    size_hint: None,None
+    GridLayout:
+        cols: 1
+        pos: self.parent.pos
+        size: self.parent.size
+        Button:
+            text: 'For Businesses'
+        Button:
+            text: 'For Advertisers'
+        Button:
+            text: 'For Customers'
+
+<MainWidgetsCreate>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        create_username_text_input: create_username
+        create_password_text_input: create_password
+        create_email_text_input: create_email
+        create_verify_password_text_input: create_verify_password
+        Label:
+            text: 'Please enter the following information.'
+        Label:
+            text: ''
+        Label:
+            text: 'Choose Username'
+        TextInput:
+            id: create_username
+            multiline: False
+        Label:
+            text: 'Enter Email'
+        TextInput:
+            id: create_email
+            multiline: False
+        Label:
+            text: 'Choose Password'
+        TextInput:
+            id: create_password
+            multiline: False
+            password: True
+        Label:
+            text: 'Re-enter Password'
+        TextInput:
+            id: create_verify_password
+            multiline: False
+            password: True
+        Label:
+            text: ''
+        Button:
+            id: create_create
+            text: 'Create Account'
+            on_release: app.create_account(self.parent.create_username_text_input.text,self.parent.create_email_text_input.text,self.parent.create_password_text_input.text,self.parent.create_verify_password_text_input.text)
+
+<ScreenManagement>:
+    transition: FadeTransition()
+    LoginScreen:
+    CreateAcctScreen:
+
+<LoginScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsLog:
+            size: 400,200
+
+<CreateAcctScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'loginscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCreate:
+            size: 400,200
+
+<PasswordsDontMatchScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'createacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Passwords do not match. Please try again.'
+
+<UsernameTakenScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'createacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Username already taken. Please try again.'
+
+<EmailTakenScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'createacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Email already taken. Please try again.'
+
+<RegistrationSuccessfulScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Login Screen'
+            on_release: app.root.current = 'loginscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Registration Successful! Please login now.'
+
+<MainAcctScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsMainAcct:
+            size: 400,400
+
+<InvalidCredentialsScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'loginscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Invalid login credentials. Please try again.'
+
+<MADApp>:
+    FloatLayout:
+        LoginScreen:
+            center: 0.5, 0.5
