@@ -1,0 +1,598 @@
+# Kivy language file for mad_app_000
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+<Label>:
+    size_hint: None,None
+    size: 200, 40
+
+<TextInput>:
+    write_tab: False
+
+<Button>:
+    font_size: 25
+    size_hint: None,None
+    size: 200, 35
+
+<TextInput>:
+    size_hint: None,None
+    size: 200, 35
+
+<MainWidgetsLog>
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        login_username_text_input: login_username
+        login_password_text_input: login_password
+        Label:
+            text: 'Username'
+        TextInput:
+            id: login_username
+            multiline: False
+        Label:
+            text: 'Password'
+        TextInput:
+            id: login_password
+            multiline: False
+            password: True
+        Label:
+            text: ''
+        Button:
+            id: login_login
+            text: 'Login'
+            on_release: app.verify_credentials(self.parent.login_username_text_input.text,self.parent.login_password_text_input.text)
+        Label:
+            text: ''
+        Button:
+            id: login_create
+            text: 'Create Account'
+            on_release: app.root.current = 'createacctscreen'
+
+<MainWidgetsMainAcct>:
+    size_hint: None,None
+    GridLayout:
+        cols: 1
+        pos: self.parent.pos
+        size: self.parent.size
+        Button:
+            text: 'For Businesses'
+            on_release: app.get_business_account(app.username)
+        Button:
+            text: 'For Advertisers'
+            on_release: app.get_advertiser_account(app.username)
+        Button:
+            text: 'For Customers'
+            on_release: app.get_customer_account(app.username)
+
+<MainWidgetsCreate>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        create_username_text_input: create_username
+        create_password_text_input: create_password
+        create_email_text_input: create_email
+        create_verify_password_text_input: create_verify_password
+        Label:
+            text: 'Please enter the following information.'
+        Label:
+            text: ''
+        Label:
+            text: 'Choose Username'
+        TextInput:
+            id: create_username
+            multiline: False
+        Label:
+            text: 'Enter Email'
+        TextInput:
+            id: create_email
+            multiline: False
+        Label:
+            text: 'Choose Password'
+        TextInput:
+            id: create_password
+            multiline: False
+            password: True
+        Label:
+            text: 'Re-enter Password'
+        TextInput:
+            id: create_verify_password
+            multiline: False
+            password: True
+        Label:
+            text: ''
+        Button:
+            id: create_create
+            text: 'Create Account'
+            on_release: app.create_account(self.parent.create_username_text_input.text,self.parent.create_email_text_input.text,self.parent.create_password_text_input.text,self.parent.create_verify_password_text_input.text)
+
+<MainWidgetsBusinessAccount>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: app.BAbusiness_name + "'s Business Account: "
+        Label:
+            text: ''
+        Label:
+            text: 'Money Owed: $' + app.BAowed
+        Label:
+            text: 'Active Ads: ' + app.BAactive_ads
+
+<MainWidgetsCreateBusinessAccount>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        createbusinessaccount_business_name_text_input: createbusinessaccount_business_name
+        createbusinessaccount_owner_text_input: createbusinessaccount_owner
+        createbusinessaccount_address_text_input: createbusinessaccount_address
+        createbusinessaccount_city_text_input: createbusinessaccount_city
+        createbusinessaccount_state_text_input: createbusinessaccount_state
+        createbusinessaccount_zip_code_text_input: createbusinessaccount_zip_code
+        Label:
+            text: 'Please enter the following information to create your account.'
+        Label:
+            text: ''
+        Label:
+            text: 'Business Name'
+        TextInput:
+            id: createbusinessaccount_business_name
+            multiline: False
+        Label:
+            text: 'Owner'
+        TextInput:
+            id: createbusinessaccount_owner
+            multiline: False
+        Label:
+            text: 'Address'
+        TextInput:
+            id: createbusinessaccount_address
+            multiline: False
+        Label:
+            text: 'City'
+        TextInput:
+            id: createbusinessaccount_city
+            multiline: False
+        Label:
+            text: 'State'
+        TextInput:
+            id: createbusinessaccount_state
+            multiline: False
+        Label:
+            text: 'Zip Code'
+        TextInput:
+            id: createbusinessaccount_zip_code
+            multiline: False
+        Label:
+            text: ''
+        Button:
+            id: create_create
+            text: 'Create Account'
+            on_release: app.create_business_account(self.parent)
+
+<MainWidgetsAdvertiserAccount>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: app.AAname + "'s Account: "
+        Label:
+            text: ''
+        Label:
+            text: 'Money Earned: $' + app.AAbalance
+        Label:
+            text: 'Active Ads: ' + app.AAactive_ads
+
+<MainWidgetsCreateAdvertiserAccount>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        createadvertiseraccount_name_text_input: createadvertiseraccount_name
+        createadvertiseraccount_address_text_input: createadvertiseraccount_address
+        createadvertiseraccount_city_text_input: createadvertiseraccount_city
+        createadvertiseraccount_state_text_input: createadvertiseraccount_state
+        createadvertiseraccount_zip_code_text_input: createadvertiseraccount_zip_code
+        Label:
+            text: 'Please enter the following information to create your account.'
+        Label:
+            text: ''
+        Label:
+            text: 'Name'
+        TextInput:
+            id: createadvertiseraccount_name
+            multiline: False
+        Label:
+            text: 'Address'
+        TextInput:
+            id: createadvertiseraccount_address
+            multiline: False
+        Label:
+            text: 'City'
+        TextInput:
+            id: createadvertiseraccount_city
+            multiline: False
+        Label:
+            text: 'State'
+        TextInput:
+            id: createadvertiseraccount_state
+            multiline: False
+        Label:
+            text: 'Zip Code'
+        TextInput:
+            id: createadvertiseraccount_zip_code
+            multiline: False
+        Label:
+            text: ''
+        Button:
+            id: create_create
+            text: 'Create Account'
+            on_release: app.create_advertiser_account(self.parent)
+
+<MainWidgetsCustomerAccount>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: app.CAname + "'s Account: "
+        Label:
+            text: ''
+        Label:
+            text: 'Money Earned: $' + app.CAbalance
+        Label:
+            text: 'Deals in Cart: ' + app.CAcart_size
+
+<MainWidgetsCreateCustomerAccount>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        createcustomeraccount_name_text_input: createcustomeraccount_name
+        createcustomeraccount_address_text_input: createcustomeraccount_address
+        createcustomeraccount_city_text_input: createcustomeraccount_city
+        createcustomeraccount_state_text_input: createcustomeraccount_state
+        createcustomeraccount_zip_code_text_input: createcustomeraccount_zip_code
+        Label:
+            text: 'Please enter the following information to create your account.'
+        Label:
+            text: ''
+        Label:
+            text: 'Name'
+        TextInput:
+            id: createcustomeraccount_name
+            multiline: False
+        Label:
+            text: 'Address'
+        TextInput:
+            id: createcustomeraccount_address
+            multiline: False
+        Label:
+            text: 'City'
+        TextInput:
+            id: createcustomeraccount_city
+            multiline: False
+        Label:
+            text: 'State'
+        TextInput:
+            id: createcustomeraccount_state
+            multiline: False
+        Label:
+            text: 'Zip Code'
+        TextInput:
+            id: createcustomeraccount_zip_code
+            multiline: False
+        Label:
+            text: ''
+        Button:
+            id: create_create
+            text: 'Create Account'
+            on_release: app.create_customer_account(self.parent)
+
+<ScreenManagement>:
+    transition: FadeTransition()
+    LoginScreen:
+    CreateAcctScreen:
+
+<LoginScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsLog:
+            size: 400,200
+
+<CreateAcctScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'loginscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCreate:
+            size: 400,200
+
+<PasswordsDontMatchScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'createacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Passwords do not match. Please try again.'
+
+<UsernameTakenScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'createacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Username already taken. Please try again.'
+
+<EmailTakenScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'createacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Email already taken. Please try again.'
+
+<RegistrationSuccessfulScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Login Screen'
+            on_release: app.root.current = 'loginscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Registration successful! Please login now.'
+
+<BusinessRegistrationSuccessfulScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Proceed'
+            on_release: app.root.current = 'businessaccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Business registration successful! Please proceed to your account page.'
+
+<AdvertiserRegistrationSuccessfulScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Proceed'
+            on_release: app.root.current = 'advertiseraccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Registration successful! Please proceed to your account page.'
+
+<CustomerRegistrationSuccessfulScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            text: 'Proceed'
+            on_release: app.root.current = 'customeraccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Registration successful! Please proceed to your account page.'
+
+<MainAcctScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsMainAcct
+
+<BusinessAccountScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        DropDown:
+            size: self.parent.size
+            Button:
+                text: 'Active Ads'
+            Button:
+                text: 'Create an Ad'
+            Button:
+                text: 'History'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'mainacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsBusinessAccount:
+            size: 400,200
+
+<CreateBusinessAccountScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'mainacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCreateBusinessAccount:
+            size: 400,200
+
+<AdvertiserAccountScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        DropDown:
+            size: self.parent.size
+            Button:
+                text: 'Start New Ad'
+            Button:
+                text: 'Current Ads'
+            Button:
+                text: 'History'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'mainacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsAdvertiserAccount:
+            size: 400,200
+
+<CreateAdvertiserAccountScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'mainacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCreateAdvertiserAccount:
+            size: 400,200
+
+<CustomerAccountScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        DropDown:
+            size: self.parent.size
+            Button:
+                text: 'See Deals'
+            Button:
+                text: 'Cart'
+            Button:
+                text: 'History'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'mainacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCustomerAccount:
+            size: 400,200
+
+<CreateCustomerAccountScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'mainacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCreateCustomerAccount:
+            size: 400,200
+
+<InvalidCredentialsScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'loginscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Invalid login credentials. Please try again.'
+
+<MADApp>:
+    FloatLayout:
+        LoginScreen:
+            center: 0.5, 0.5
