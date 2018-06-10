@@ -1,0 +1,9 @@
+Version 0.0.2 of the MAD app. Published 6/10/2018. Has full support for all business-action-only (does not yet have coupon use approval)
+functions that will be in the production version of the app that we know about to this point. 
+
+Only missing functionalities are the following:
+Advertisers: begin a campaign, monitor open ads. 
+Customers: Look for deals, add ads to cart, redeem ads. 
+When an ad is redeemed, we need to first send an email to the business. They then should get on the app and go to a section titled 
+redemptions. Here, they should be able to verify that a coupon was used or not. If verified, both the customer and the advertiser should
+get emails saying their account has been credited. The business should be charged, then the customer and advertiser accounts credited. 
