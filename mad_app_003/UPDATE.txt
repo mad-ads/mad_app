@@ -1,0 +1,8 @@
+VERSION 0.0.3 UPDATE 20180613
+
+This app has full functionality. Accounts can be created, users can login. Businesses can create ads, view all currently running ads, 
+view history, and verify or dispute used ads. Advertisers can begin a new campaign, see their current campaigns, view their history, or
+cash out. Customers can look for deals, add them to cart, redeem them, view their history, and cash out. THIS SHOULD BE EVERYTHING.
+
+THERE ARE ALMOST CERTAINLY BUGS. One known one is printing of amounts owed. This can be quickly fixed. Please TRY EVERYTHING. If a bug is
+found, report it to the proper Slack channel. 
