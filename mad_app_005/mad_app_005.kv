@@ -1,0 +1,2180 @@
+# Kivy language file for mad_app_004
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+<Label>:
+    size_hint: None,None
+    size: 200, 40
+    color: (1,1,1,1)
+
+<AutoWrapLabel>:
+    size: 200,40
+    size_hint_y: None
+    text_size: self.width, None
+    height: self.texture_size[1]
+    halign: 'center'
+    valign: 'center'
+
+<TextInput>:
+    write_tab: False
+
+<Button>:
+    font_size: 25
+    size_hint: None,None
+    size: 200, 35
+    #Button Color
+    background_color: (0,0,0,1)
+    color: (1,1,1,1)
+
+#Background Color
+<Screen>:
+    canvas.before:
+        Color:
+            rgba: (1, 0, 0, 0.5)
+        Rectangle:
+            # self here refers to the widget i.e BoxLayout
+            pos: self.pos
+            size: self.size
+
+<LongButton>:
+    font_size: 25
+    size_hint: None,None
+    size: self.parent.parent.width,35
+    #Button Color
+    background_color: (0,0,0,1)
+    color: (1,1,1,1)
+
+<TextInput>:
+    size_hint: None,None
+    size: 200, 35
+
+<MultilineTextInput>:
+    size_hint: None,None
+    size: 200, 70
+
+<MainWidgetsHome>:
+    on_touch_up: app.root.current = 'loginscreen'
+
+<MainWidgetsLog>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        login_username_text_input: login_username
+        login_password_text_input: login_password
+        Label:
+            text: 'Username'
+        TextInput:
+            id: login_username
+            multiline: False
+        Label:
+            text: 'Password'
+        TextInput:
+            id: login_password
+            multiline: False
+            password: True
+        Label:
+            text: ''
+        Button:
+            id: login_login
+            text: 'Login'
+            on_release: app.verify_credentials(self.parent.login_username_text_input.text,self.parent.login_password_text_input.text)
+        Label:
+            text: ''
+        Button:
+            id: login_create
+            text: 'Create Account'
+            on_release: app.root.current = 'createacctscreen'
+
+<MainWidgetsMainAcct>:
+    size_hint: None,None
+    GridLayout:
+        cols: 1
+        pos: self.parent.pos
+        size: self.parent.size
+        Button:
+            text: 'For Businesses'
+            on_release: app.get_business_account(app.username)
+        Button:
+            text: 'For Advertisers'
+            on_release: app.get_advertiser_account(app.username)
+        Button:
+            text: 'For Customers'
+            on_release: app.get_customer_account(app.username)
+
+<MainWidgetsCreate>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        create_username_text_input: create_username
+        create_password_text_input: create_password
+        create_email_text_input: create_email
+        create_verify_password_text_input: create_verify_password
+        Label:
+            text: 'Please enter the following information.'
+        Label:
+            text: ''
+        Label:
+            text: 'Choose Username'
+        TextInput:
+            id: create_username
+            multiline: False
+        Label:
+            text: 'Enter Email'
+        TextInput:
+            id: create_email
+            multiline: False
+        Label:
+            text: 'Choose Password'
+        TextInput:
+            id: create_password
+            multiline: False
+            password: True
+        Label:
+            text: 'Re-enter Password'
+        TextInput:
+            id: create_verify_password
+            multiline: False
+            password: True
+        Label:
+            text: ''
+        Button:
+            id: create_create
+            text: 'Create Account'
+            on_release: app.create_account(self.parent.create_username_text_input.text,self.parent.create_email_text_input.text,self.parent.create_password_text_input.text,self.parent.create_verify_password_text_input.text)
+
+<MainWidgetsBusinessAccount>:
+    size_hint: None,None
+    GridLayout:
+        cols: 1
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: app.BAbusiness_name + "'s Business Account: "
+        Label:
+            text: 'Money Owed: $' + app.BAowed
+
+<AuxWidgetsPossibleAds>:
+    size_hint: None,None
+    GridLayout:
+        cols: 3
+        pos: self.parent.pos
+        size: self.parent.size
+        possibleadssearch_text_input: possibleadssearch
+        Label:
+            text: 'Business Name'
+        TextInput:
+            id: possibleadssearch
+            multiline: False
+        Button:
+            text: 'Search'
+            on_release: app.search_business(str(self.parent.possibleadssearch_text_input.text.strip()))
+
+<AuxWidgetsSeeDeals>:
+    size_hint: None,None
+    GridLayout:
+        cols: 3
+        pos: self.parent.pos
+        size: self.parent.size
+        seedealssearch_text_input: seedealssearch
+        Label:
+            text: 'Business Name or Username'
+        TextInput:
+            id: seedealssearch
+            multiline: False
+        Button:
+            text: 'Search'
+            on_release: app.search_deals(str(self.parent.seedealssearch_text_input.text.strip()))
+
+<MainWidgetsActiveAds>:
+    size_hint: None,None
+    GridLayout:
+        cols: 1
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: 'Your active ads. We have more on file if necessary.\nYou can request it on our website.'
+        LongButton:
+            text: app.ad_list[0][1] + ": " + app.ad_list[0][2]
+            on_release: app.make_ad_screen(app.ad_list[0])
+        LongButton:
+            text: app.ad_list[1][1] + ": " + app.ad_list[1][2]
+            on_release: app.make_ad_screen(app.ad_list[1])
+        LongButton:
+            text: app.ad_list[2][1] + ": " + app.ad_list[2][2]
+            on_release: app.make_ad_screen(app.ad_list[2])
+        LongButton:
+            text: app.ad_list[3][1] + ": " + app.ad_list[3][2]
+            on_release: app.make_ad_screen(app.ad_list[3])
+        LongButton:
+            text: app.ad_list[4][1] + ": " + app.ad_list[4][2]
+            on_release: app.make_ad_screen(app.ad_list[4])
+        LongButton:
+            text: app.ad_list[5][1] + ": " + app.ad_list[5][2]
+            on_release: app.make_ad_screen(app.ad_list[5])
+        LongButton:
+            text: app.ad_list[6][1] + ': ' + app.ad_list[6][2]
+            on_release: app.make_ad_screen(app.ad_list[6])
+        LongButton:
+            text: app.ad_list[7][1] + ': ' + app.ad_list[7][2]
+            on_release: app.make_ad_screen(app.ad_list[7])
+        LongButton:
+            text: app.ad_list[8][1] + ': ' + app.ad_list[8][2]
+            on_release: app.make_ad_screen(app.ad_list[8])
+        LongButton:
+            text: app.ad_list[9][1] + ': ' + app.ad_list[9][2]
+            on_release: app.make_ad_screen(app.ad_list[9])
+
+<MainWidgetsCurrentAds>:
+    size_hint: None,None
+    GridLayout:
+        cols: 1
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: 'Your active ads. We have more on file if necessary.\nYou can request it on our website.'
+        LongButton:
+            text: app.ad_list[0][1] + ": " + app.ad_list[0][2]
+            on_release: app.make_ad_screen_c(app.ad_list[0])
+        LongButton:
+            text: app.ad_list[1][1] + ": " + app.ad_list[1][2]
+            on_release: app.make_ad_screen_c(app.ad_list[1])
+        LongButton:
+            text: app.ad_list[2][1] + ": " + app.ad_list[2][2]
+            on_release: app.make_ad_screen_c(app.ad_list[2])
+        LongButton:
+            text: app.ad_list[3][1] + ": " + app.ad_list[3][2]
+            on_release: app.make_ad_screen_c(app.ad_list[3])
+        LongButton:
+            text: app.ad_list[4][1] + ": " + app.ad_list[4][2]
+            on_release: app.make_ad_screen_c(app.ad_list[4])
+        LongButton:
+            text: app.ad_list[5][1] + ": " + app.ad_list[5][2]
+            on_release: app.make_ad_screen_c(app.ad_list[5])
+        LongButton:
+            text: app.ad_list[6][1] + ': ' + app.ad_list[6][2]
+            on_release: app.make_ad_screen_c(app.ad_list[6])
+        LongButton:
+            text: app.ad_list[7][1] + ': ' + app.ad_list[7][2]
+            on_release: app.make_ad_screen_c(app.ad_list[7])
+        LongButton:
+            text: app.ad_list[8][1] + ': ' + app.ad_list[8][2]
+            on_release: app.make_ad_screen_c(app.ad_list[8])
+        LongButton:
+            text: app.ad_list[9][1] + ': ' + app.ad_list[9][2]
+            on_release: app.make_ad_screen_c(app.ad_list[9])
+
+<MainWidgetsCart>:
+    size_hint: None,None
+    GridLayout:
+        cols: 1
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: 'Your cart.'
+        LongButton:
+            text: app.ad_list[0][1] + ": " + app.ad_list[0][2]
+            on_release: app.make_ad_screen_sa(app.ad_list[0])
+        LongButton:
+            text: app.ad_list[1][1] + ": " + app.ad_list[1][2]
+            on_release: app.make_ad_screen_sa(app.ad_list[1])
+        LongButton:
+            text: app.ad_list[2][1] + ": " + app.ad_list[2][2]
+            on_release: app.make_ad_screen_sa(app.ad_list[2])
+        LongButton:
+            text: app.ad_list[3][1] + ": " + app.ad_list[3][2]
+            on_release: app.make_ad_screen_sa(app.ad_list[3])
+        LongButton:
+            text: app.ad_list[4][1] + ": " + app.ad_list[4][2]
+            on_release: app.make_ad_screen_sa(app.ad_list[4])
+        LongButton:
+            text: app.ad_list[5][1] + ": " + app.ad_list[5][2]
+            on_release: app.make_ad_screen_sa(app.ad_list[5])
+        LongButton:
+            text: app.ad_list[6][1] + ': ' + app.ad_list[6][2]
+            on_release: app.make_ad_screen_sa(app.ad_list[6])
+        LongButton:
+            text: app.ad_list[7][1] + ': ' + app.ad_list[7][2]
+            on_release: app.make_ad_screen_sa(app.ad_list[7])
+        LongButton:
+            text: app.ad_list[8][1] + ': ' + app.ad_list[8][2]
+            on_release: app.make_ad_screen_sa(app.ad_list[8])
+        LongButton:
+            text: app.ad_list[9][1] + ': ' + app.ad_list[9][2]
+            on_release: app.make_ad_screen_sa(app.ad_list[9])
+
+<MainWidgetsVerifyCoupons>:
+    size_hint: None,None
+    GridLayout:
+        cols: 1
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: 'Please verify that the following coupons \nwere used at your business. '
+        LongButton:
+            text: app.ad_list[0][1] + ": " + app.ad_list[0][2]
+            on_release: app.make_ad_screen_v(app.ad_list[0])
+        LongButton:
+            text: app.ad_list[1][1] + ": " + app.ad_list[1][2]
+            on_release: app.make_ad_screen_v(app.ad_list[1])
+        LongButton:
+            text: app.ad_list[2][1] + ": " + app.ad_list[2][2]
+            on_release: app.make_ad_screen_v(app.ad_list[2])
+        LongButton:
+            text: app.ad_list[3][1] + ": " + app.ad_list[3][2]
+            on_release: app.make_ad_screen_v(app.ad_list[3])
+        LongButton:
+            text: app.ad_list[4][1] + ": " + app.ad_list[4][2]
+            on_release: app.make_ad_screen_v(app.ad_list[4])
+        LongButton:
+            text: app.ad_list[5][1] + ": " + app.ad_list[5][2]
+            on_release: app.make_ad_screen_v(app.ad_list[5])
+        LongButton:
+            text: app.ad_list[6][1] + ': ' + app.ad_list[6][2]
+            on_release: app.make_ad_screen_v(app.ad_list[6])
+        LongButton:
+            text: app.ad_list[7][1] + ': ' + app.ad_list[7][2]
+            on_release: app.make_ad_screen_v(app.ad_list[7])
+        LongButton:
+            text: app.ad_list[8][1] + ': ' + app.ad_list[8][2]
+            on_release: app.make_ad_screen_v(app.ad_list[8])
+        LongButton:
+            text: app.ad_list[9][1] + ': ' + app.ad_list[9][2]
+            on_release: app.make_ad_screen_v(app.ad_list[9])
+
+<MainWidgetsSeeDeals>:
+    size_hint: None,None
+    GridLayout:
+        cols: 1
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: 'Possible deals for you. You can search by business name \nor advertiser username in the bar above.'
+        LongButton:
+            text: app.ad_list[0][1] + ": " + app.ad_list[0][2]
+            on_release: app.make_ad_screen_s(app.ad_list[0])
+        LongButton:
+            text: app.ad_list[1][1] + ": " + app.ad_list[1][2]
+            on_release: app.make_ad_screen_s(app.ad_list[1])
+        LongButton:
+            text: app.ad_list[2][1] + ": " + app.ad_list[2][2]
+            on_release: app.make_ad_screen_s(app.ad_list[2])
+        LongButton:
+            text: app.ad_list[3][1] + ": " + app.ad_list[3][2]
+            on_release: app.make_ad_screen_s(app.ad_list[3])
+        LongButton:
+            text: app.ad_list[4][1] + ": " + app.ad_list[4][2]
+            on_release: app.make_ad_screen_s(app.ad_list[4])
+        LongButton:
+            text: app.ad_list[5][1] + ": " + app.ad_list[5][2]
+            on_release: app.make_ad_screen_s(app.ad_list[5])
+        LongButton:
+            text: app.ad_list[6][1] + ': ' + app.ad_list[6][2]
+            on_release: app.make_ad_screen_s(app.ad_list[6])
+        LongButton:
+            text: app.ad_list[7][1] + ': ' + app.ad_list[7][2]
+            on_release: app.make_ad_screen_s(app.ad_list[7])
+        LongButton:
+            text: app.ad_list[8][1] + ': ' + app.ad_list[8][2]
+            on_release: app.make_ad_screen_s(app.ad_list[8])
+        LongButton:
+            text: app.ad_list[9][1] + ': ' + app.ad_list[9][2]
+            on_release: app.make_ad_screen_s(app.ad_list[9])
+
+<MainWidgetsPossibleAds>:
+    size_hint: None,None
+    GridLayout:
+        cols: 1
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: 'Potential ads for you. Either search by company or re-enter the page for more.'
+        LongButton:
+            text: app.ad_list_p[0][1] + ": " + app.ad_list_p[0][2]
+            on_release: app.make_ad_screen_p(app.ad_list_p[0])
+        LongButton:
+            text: app.ad_list_p[1][1] + ": " + app.ad_list_p[1][2]
+            on_release: app.make_ad_screen_p(app.ad_list_p[1])
+        LongButton:
+            text: app.ad_list_p[2][1] + ": " + app.ad_list_p[2][2]
+            on_release: app.make_ad_screen_p(app.ad_list_p[2])
+        LongButton:
+            text: app.ad_list_p[3][1] + ": " + app.ad_list_p[3][2]
+            on_release: app.make_ad_screen_p(app.ad_list_p[3])
+        LongButton:
+            text: app.ad_list_p[4][1] + ": " + app.ad_list_p[4][2]
+            on_release: app.make_ad_screen_p(app.ad_list_p[4])
+        LongButton:
+            text: app.ad_list_p[5][1] + ": " + app.ad_list_p[5][2]
+            on_release: app.make_ad_screen_p(app.ad_list_p[5])
+        LongButton:
+            text: app.ad_list_p[6][1] + ': ' + app.ad_list_p[6][2]
+            on_release: app.make_ad_screen_p(app.ad_list_p[6])
+        LongButton:
+            text: app.ad_list_p[7][1] + ': ' + app.ad_list_p[7][2]
+            on_release: app.make_ad_screen_p(app.ad_list_p[7])
+        LongButton:
+            text: app.ad_list_p[8][1] + ': ' + app.ad_list_p[8][2]
+            on_release: app.make_ad_screen_p(app.ad_list_p[8])
+        LongButton:
+            text: app.ad_list_p[9][1] + ': ' + app.ad_list_p[9][2]
+            on_release: app.make_ad_screen_p(app.ad_list[9])
+
+
+<MainWidgetsCustomerHistory>:
+    size_hint: None,None
+    GridLayout:
+        cols: 1
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: 'Your recent history. We have more on file if necessary.\nYou can request it on our website.'
+        Label:
+            text: app.CAhistory[0]
+        Label:
+            text: app.CAhistory[1]
+        Label:
+            text: app.CAhistory[2]
+        Label:
+            text: app.CAhistory[3]
+        Label:
+            text: app.CAhistory[4]
+        Label:
+            text: app.CAhistory[5]
+        Label:
+            text: app.CAhistory[6]
+        Label:
+            text: app.CAhistory[7]
+        Label:
+            text: app.CAhistory[8]
+        Label:
+            text: app.CAhistory[9]
+
+<MainWidgetsAdvertiserHistory>:
+    size_hint: None,None
+    GridLayout:
+        cols: 1
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: 'Your recent history. We have more on file if necessary.\nYou can request it on our website.'
+        Label:
+            text: app.AAhistory[0]
+        Label:
+            text: app.AAhistory[1]
+        Label:
+            text: app.AAhistory[2]
+        Label:
+            text: app.AAhistory[3]
+        Label:
+            text: app.AAhistory[4]
+        Label:
+            text: app.AAhistory[5]
+        Label:
+            text: app.AAhistory[6]
+        Label:
+            text: app.AAhistory[7]
+        Label:
+            text: app.AAhistory[8]
+        Label:
+            text: app.AAhistory[9]
+
+<MainWidgetsBusinessHistory>:
+    size_hint: None,None
+    GridLayout:
+        cols: 1
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: 'Your recent history. We have more on file if necessary.\nYou can request it on our website.'
+        Label:
+            text: app.BAhistory[0]
+        Label:
+            text: app.BAhistory[1]
+        Label:
+            text: app.BAhistory[2]
+        Label:
+            text: app.BAhistory[3]
+        Label:
+            text: app.BAhistory[4]
+        Label:
+            text: app.BAhistory[5]
+        Label:
+            text: app.BAhistory[6]
+        Label:
+            text: app.BAhistory[7]
+        Label:
+            text: app.BAhistory[8]
+        Label:
+            text: app.BAhistory[9]
+
+<MainWidgetsCreateBusinessAccount>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        createbusinessaccount_business_name_text_input: createbusinessaccount_business_name
+        createbusinessaccount_owner_text_input: createbusinessaccount_owner
+        createbusinessaccount_address_text_input: createbusinessaccount_address
+        createbusinessaccount_city_text_input: createbusinessaccount_city
+        createbusinessaccount_state_text_input: createbusinessaccount_state
+        createbusinessaccount_zip_code_text_input: createbusinessaccount_zip_code
+        Label:
+            text: 'Please enter the following information to create your account.'
+        Label:
+            text: ''
+        Label:
+            text: 'Business Name'
+        TextInput:
+            id: createbusinessaccount_business_name
+            multiline: False
+        Label:
+            text: 'Owner'
+        TextInput:
+            id: createbusinessaccount_owner
+            multiline: False
+        Label:
+            text: 'Address'
+        TextInput:
+            id: createbusinessaccount_address
+            multiline: False
+        Label:
+            text: 'City'
+        TextInput:
+            id: createbusinessaccount_city
+            multiline: False
+        Label:
+            text: 'State'
+        TextInput:
+            id: createbusinessaccount_state
+            multiline: False
+        Label:
+            text: 'Zip Code'
+        TextInput:
+            id: createbusinessaccount_zip_code
+            multiline: False
+        Label:
+            text: ''
+        Button:
+            id: create_create
+            text: 'Create Account'
+            on_release: app.create_business_account(self.parent)
+
+<MainWidgetsAdvertiserAccount>:
+    size_hint: None,None
+    GridLayout:
+        cols: 1
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: app.AAname + "'s Account: "
+        Label:
+            text: 'Money Earned: $' + app.AAbalance
+
+<MainWidgetsCreateAdvertiserAccount>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        createadvertiseraccount_name_text_input: createadvertiseraccount_name
+        createadvertiseraccount_address_text_input: createadvertiseraccount_address
+        createadvertiseraccount_city_text_input: createadvertiseraccount_city
+        createadvertiseraccount_state_text_input: createadvertiseraccount_state
+        createadvertiseraccount_zip_code_text_input: createadvertiseraccount_zip_code
+        Label:
+            text: 'Please enter the following information to create your account.'
+        Label:
+            text: ''
+        Label:
+            text: 'Name'
+        TextInput:
+            id: createadvertiseraccount_name
+            multiline: False
+        Label:
+            text: 'Address'
+        TextInput:
+            id: createadvertiseraccount_address
+            multiline: False
+        Label:
+            text: 'City'
+        TextInput:
+            id: createadvertiseraccount_city
+            multiline: False
+        Label:
+            text: 'State'
+        TextInput:
+            id: createadvertiseraccount_state
+            multiline: False
+        Label:
+            text: 'Zip Code'
+        TextInput:
+            id: createadvertiseraccount_zip_code
+            multiline: False
+        Label:
+            text: ''
+        Button:
+            id: create_create
+            text: 'Create Account'
+            on_release: app.create_advertiser_account(self.parent)
+
+<MainWidgetsCashOutCustomer>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        customer_paypal_email_text_input: customer_paypal_email
+        Label:
+            text: 'Please enter a valid PayPal email. You can claim: $' + app.CAbalance + '.'
+        Label:
+            text: ''
+        Label:
+            text: 'Your PayPal Email'
+        TextInput:
+            id: customer_paypal_email
+            multiline: False
+        Label:
+            text: ''
+        Button:
+            text: 'Submit'
+            on_release: app.record_paypal_email_customer(self.parent)
+
+<MainWidgetsCashOutAdvertiser>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        advertiser_paypal_email_text_input: advertiser_paypal_email
+        Label:
+            text: 'Please enter a valid PayPal email. You can claim: $' + app.AAbalance + '.'
+        Label:
+            text: ''
+        Label:
+            text: 'Your PayPal Email'
+        TextInput:
+            id: advertiser_paypal_email
+            multiline: False
+        Label:
+            text: ''
+        Button:
+            text: 'Submit'
+            on_release: app.record_paypal_email_advertiser(self.parent)
+
+<MainWidgetsCustomerAccount>:
+    size_hint: None,None
+    GridLayout:
+        cols: 1
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: app.CAname + "'s Account: "
+        Label:
+            text: 'Money Earned: $' + app.CAbalance
+
+<MainWidgetsCreateCustomerAccount>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        createcustomeraccount_name_text_input: createcustomeraccount_name
+        createcustomeraccount_address_text_input: createcustomeraccount_address
+        createcustomeraccount_city_text_input: createcustomeraccount_city
+        createcustomeraccount_state_text_input: createcustomeraccount_state
+        createcustomeraccount_zip_code_text_input: createcustomeraccount_zip_code
+        Label:
+            text: 'Please enter the following information to create your account.'
+        Label:
+            text: ''
+        Label:
+            text: 'Name'
+        TextInput:
+            id: createcustomeraccount_name
+            multiline: False
+        Label:
+            text: 'Address'
+        TextInput:
+            id: createcustomeraccount_address
+            multiline: False
+        Label:
+            text: 'City'
+        TextInput:
+            id: createcustomeraccount_city
+            multiline: False
+        Label:
+            text: 'State'
+        TextInput:
+            id: createcustomeraccount_state
+            multiline: False
+        Label:
+            text: 'Zip Code'
+        TextInput:
+            id: createcustomeraccount_zip_code
+            multiline: False
+        Label:
+            text: ''
+        Button:
+            id: create_create
+            text: 'Create Account'
+            on_release: app.create_customer_account(self.parent)
+
+<MainWidgetsCreateAd>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        createad_deal_name_text_input: createad_deal_name
+        createad_description_text_input: createad_description
+        createad_start_date_text_input: createad_start_date
+        createad_end_date_text_input: createad_end_date
+        createad_other_offers_text_input: createad_other_offers
+        AutoWrapLabel:
+            text: 'Please enter the following information to create your ad.\nSee our website for an example.'
+        Label:
+            text: ''
+        Label:
+            text: 'Deal Name'
+        TextInput:
+            id: createad_deal_name
+            multiline: False
+        Label:
+            text: 'Description\n'
+        MultilineTextInput:
+            id: createad_description
+        Label:
+            text: 'Start Date (MM/DD/YYYY)'
+        TextInput:
+            id: createad_start_date
+            multiline: False
+        Label:
+            text: 'End Date (MM/DD/YYYY)'
+        TextInput:
+            id: createad_end_date
+            multiline: False
+        Label:
+            text: 'Valid with Other Offers? (Y/N)'
+        TextInput:
+            id: createad_other_offers
+            multiline: False
+        Label:
+            text: ''
+        Button:
+            text: 'To Preview'
+            on_release: app.store_ad(self.parent)
+
+<MainWidgetsAdPayment>:
+    size_hint: None,None
+    GridLayout:
+        cols: 3
+        pos: self.parent.pos
+        size: self.parent.size
+        adpayment_paypal_email_text_input: adpayment_paypal_email
+        Label:
+            text: 'PayPal Email'
+        TextInput:
+            id: adpayment_paypal_email
+            multiline: False
+        Label:
+            text: ''
+        Label:
+            text: 'Option 1:'
+        Label:
+            text: 'Option 2:'
+        Label:
+            text: 'Option 3:'
+        Label:
+            text: '- $100 per month'
+        Label:
+            text: '- $200 per month'
+        Label:
+            text: '- $300 per month'
+        Label:
+            text: '- $0.65 per coupon used'
+        Label:
+            text: '- $0.50 per coupon used'
+        Label:
+            text: '- $0.50 per coupon used'
+        AutoWrapLabel:
+            text: '- Advertisers get $0.10 of that per customer brought in\n'
+        AutoWrapLabel:
+            text: '- Advertisers get $0.15 of that per customer brought in\n'
+        AutoWrapLabel:
+            text: '- Advertisers get $0.25 of that per customer brought in\n'
+        AutoWrapLabel:
+            text: '- Customers get $0.05 of that per coupon use\n'
+        AutoWrapLabel:
+            text: '- Customers get $0.05 of that per coupon use\n'
+        AutoWrapLabel:
+            text: '- Customers get $0.10 of that per coupon use\n'
+        AutoWrapLabel:
+            text: '- Total due: $100/month and $0.65/coupon used'
+        AutoWrapLabel:
+            text: '- Total due: $200/month and $0.50/coupon used'
+        AutoWrapLabel:
+            text: '- Total due: $300/month and $0.50/coupon used'
+        Button:
+            text: 'Option 1'
+            on_release: app.write_ad(self.parent,1)
+        Button:
+            text: 'Option 2'
+            on_release: app.write_ad(self.parent,2)
+        Button:
+            text: 'Option 3'
+            on_release: app.write_ad(self.parent,3)
+
+<MainWidgetsPreviewAd>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: 'Description\n'
+        AutoWrapLabel:
+            text: app.createad_description
+        Label:
+            text: 'Start Date'
+        Label:
+            text: app.createad_start_date
+        Label:
+            text: 'End Date'
+        Label:
+            text: app.createad_end_date
+        Label:
+            text: 'Valid with Other Offers?'
+        Label:
+            text: app.createad_other_offers
+        Label:
+            text: app.BAbusiness_name + '.'
+        Label:
+            text: app.BAaddress
+        Label:
+            text: ''
+        Label:
+            text: app.BAcity + ', ' + app.BAstate + ' ' + app.BAzip_code
+        AutoWrapLabel:
+            text: app.BAbusiness_name + ' and MAD Ads reserve the right to settle all disputes.'
+        Label:
+            text: ''
+
+<MainWidgetsAd>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: 'Description\n'
+        AutoWrapLabel:
+            text: app.viewad_description
+        Label:
+            text: 'Start Date'
+        Label:
+            text: app.viewad_start_date
+        Label:
+            text: 'End Date'
+        Label:
+            text: app.viewad_end_date
+        Label:
+            text: 'Valid with Other Offers?'
+        Label:
+            text: app.viewad_other_offers
+        Label:
+            text: app.viewad_business_name + '.'
+        Label:
+            text: app.viewad_business_address
+        Label:
+            text: ''
+        Label:
+            text: app.viewad_business_city + ', ' + app.viewad_business_state + ' ' + app.viewad_business_zip_code
+        Label:
+            text: 'Advertisers'
+        Label:
+            text: app.viewad_advertisers
+        Label:
+            text: 'Uses'
+        Label:
+            text: app.viewad_uses
+        AutoWrapLabel:
+            text: app.viewad_business_name + ' and MAD Ads reserve the right to settle all disputes.'
+        Label:
+            text: ''
+
+<MainWidgetsPAd>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: 'Description\n'
+        AutoWrapLabel:
+            text: app.pad_description
+        Label:
+            text: 'Start Date'
+        Label:
+            text: app.pad_start_date
+        Label:
+            text: 'End Date'
+        Label:
+            text: app.pad_end_date
+        Label:
+            text: 'Valid with Other Offers?'
+        Label:
+            text: app.pad_other_offers
+        Label:
+            text: 'Payout'
+        Label:
+            text: app.pad_payout
+        Label:
+            text: app.pad_business_name + '.'
+        Label:
+            text: app.pad_business_address
+        Label:
+            text: ''
+        Label:
+            text: app.pad_business_city + ', ' + app.pad_business_state + ' ' + app.pad_business_zip_code
+        Label:
+            text: 'Advertisers'
+        Label:
+            text: app.pad_advertisers
+        Label:
+            text: 'Uses'
+        Label:
+            text: app.pad_uses
+
+<MainWidgetsCAd>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: 'Description\n'
+        AutoWrapLabel:
+            text: app.cad_description
+        Label:
+            text: 'Start Date'
+        Label:
+            text: app.cad_start_date
+        Label:
+            text: 'End Date'
+        Label:
+            text: app.cad_end_date
+        Label:
+            text: 'Valid with Other Offers?'
+        Label:
+            text: app.cad_other_offers
+        Label:
+            text: 'Payout'
+        Label:
+            text: app.cad_payout
+        Label:
+            text: app.cad_business_name + '.'
+        Label:
+            text: app.cad_business_address
+        Label:
+            text: ''
+        Label:
+            text: app.cad_business_city + ', ' + app.cad_business_state + ' ' + app.cad_business_zip_code
+        Label:
+            text: 'Advertiser'
+        Label:
+            text: app.cad_advertiser
+        Label:
+            text: 'Uses'
+        Label:
+            text: app.cad_uses
+
+<MainWidgetsSAd>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: 'Description\n'
+        AutoWrapLabel:
+            text: app.sad_description
+        Label:
+            text: 'Start Date'
+        Label:
+            text: app.sad_start_date
+        Label:
+            text: 'End Date'
+        Label:
+            text: app.sad_end_date
+        Label:
+            text: 'Valid with Other Offers?'
+        Label:
+            text: app.sad_other_offers
+        Label:
+            text: 'Payout'
+        Label:
+            text: app.sad_payout
+        Label:
+            text: app.sad_business_name + '.'
+        Label:
+            text: app.sad_business_address
+        Label:
+            text: ''
+        Label:
+            text: app.sad_business_city + ', ' + app.sad_business_state + ' ' + app.sad_business_zip_code
+        Label:
+            text: 'Advertiser'
+        Label:
+            text: app.sad_advertiser
+        Label:
+            text: 'Uses'
+        Label:
+            text: app.sad_uses
+
+<MainWidgetsSAAd>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: 'Description\n'
+        AutoWrapLabel:
+            text: app.saad_description
+        Label:
+            text: 'Start Date'
+        Label:
+            text: app.saad_start_date
+        Label:
+            text: 'End Date'
+        Label:
+            text: app.saad_end_date
+        Label:
+            text: 'Valid with Other Offers?'
+        Label:
+            text: app.saad_other_offers
+        Label:
+            text: 'Payout'
+        Label:
+            text: app.saad_payout
+        Label:
+            text: app.saad_business_name + '.'
+        Label:
+            text: app.saad_business_address
+        Label:
+            text: ''
+        Label:
+            text: app.saad_business_city + ', ' + app.saad_business_state + ' ' + app.saad_business_zip_code
+        Label:
+            text: 'Advertiser'
+        Label:
+            text: app.saad_advertiser
+        Label:
+            text: 'Uses'
+        Label:
+            text: app.saad_uses
+
+<MainWidgetsVAd>:
+    size_hint: None,None
+    GridLayout:
+        cols: 2
+        pos: self.parent.pos
+        size: self.parent.size
+        Label:
+            text: 'Description\n'
+        AutoWrapLabel:
+            text: app.vad_description
+        Label:
+            text: 'Start Date'
+        Label:
+            text: app.vad_start_date
+        Label:
+            text: 'End Date'
+        Label:
+            text: app.vad_end_date
+        Label:
+            text: 'Valid with Other Offers?'
+        Label:
+            text: app.vad_other_offers
+        Label:
+            text: 'Payout Fee'
+        Label:
+            text: app.vad_business_payout
+        Label:
+            text: 'Date Used'
+        Label:
+            text: app.vad_date_used
+        Label:
+            text: 'Advertiser'
+        Label:
+            text: app.vad_advertiser
+        Label:
+            text: 'Uses'
+        Label:
+            text: app.vad_uses
+
+<ScreenManagement>:
+    transition: FadeTransition()
+    LoginScreen:
+    CreateAcctScreen:
+
+<HomeScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Welcome'
+        MainWidgetsHome:
+            size: 400,200
+
+<LoginScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsLog:
+            size: 400,200
+
+<CreateAdScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'businessaccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCreateAd:
+            size: 400,200
+
+<AdPaymentScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'previewadscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'top'
+        size: self.parent.size
+        AutoWrapLabel:
+            text: 'Please choose a plan and enter your PayPal email. You will receive an invoice in the next few days for your initial costs.'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsAdPayment:
+            size: 600,400
+
+<PreviewAdScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'createadscreen'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            text: 'To Payment'
+            on_release: app.root.current = 'adpaymentscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'top'
+        size: self.parent.size
+        AutoWrapLabel:
+            text: '\nPotential customers will be presented with a button with text "' + app.BAbusiness_name + ': '+ app.createad_deal_name + '". Upon pressing, they will see this screen.'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsPreviewAd:
+            size: 400,200
+
+<AdScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+
+            on_release: app.root.current = 'activeadsscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsAd:
+            size: 400,200
+
+<PAdScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'possibleadsscreen'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Accept Ad'
+            on_release: app.accept_ad()
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'top'
+        size: self.parent.size
+        AutoWrapLabel:
+            text: app.pad_business_name + ' and MAD Ads reserve the right to settle all disputes.'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsPAd:
+            size: 400,200
+
+<CAdScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'currentadsscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'top'
+        size: self.parent.size
+        AutoWrapLabel:
+            text: app.cad_business_name + ' and MAD Ads reserve the right to settle all disputes.'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCAd:
+            size: 400,200
+
+<SAdScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'seedealsscreen'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Add to Cart'
+            on_release: app.add_to_cart()
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'top'
+        size: self.parent.size
+        AutoWrapLabel:
+            text: app.sad_business_name + ' and MAD Ads reserve the right to settle all disputes.'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsSAd:
+            size: 400,200
+
+<SAAdScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'cartscreen'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Redeem'
+            on_release: app.root.current = 'redeemconfirmationscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'top'
+        size: self.parent.size
+        AutoWrapLabel:
+            text: app.saad_business_name + ' and MAD Ads reserve the right to settle all disputes.'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsSAAd:
+            size: 400,200
+
+<VAdScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'verifycouponsscreen'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            text: 'Confirm'
+            on_release: app.root.current = 'confirmconfirmationscreen'
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            text: 'Dispute'
+            on_release: app.root.current = 'disputeconfirmationscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'top'
+        size: self.parent.size
+        AutoWrapLabel:
+            text: app.vad_business_name + ' and MAD Ads reserve the right to settle all disputes.'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsVAd:
+            size: 400,200
+
+<CreateAcctScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'loginscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCreate:
+            size: 400,200
+
+<PasswordsDontMatchScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'createacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Passwords do not match. Please try again.'
+
+<UsernameTakenScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'createacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Username already taken. Please try again.'
+
+<EmailTakenScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'createacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Email already taken. Please try again.'
+
+<RegistrationSuccessfulScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Login Screen'
+            on_release: app.root.current = 'loginscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Registration successful! Please login now.'
+
+<RedeemConfirmationScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'cartscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            text: 'Redeem'
+            on_release: app.redeem_deal()
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Only redeem this coupon if you are using it at the business. Redeem?'
+
+<ConfirmConfirmationScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'verifycouponsscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            text: 'Confirm'
+            on_release: app.confirm_deal()
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'By confirming, you acknowledge that this coupon was used at your business.'
+
+<DisputeConfirmationScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'verifycouponsscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            text: 'Dispute'
+            on_release: app.dispute_deal()
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'By clicking below, you dispute that this coupon was used \nat your business. The customer will be contacted.'
+
+<ThanksBackScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'verifycouponsscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Thank you. Please return to your verification screen.'
+
+
+<RedeemSentScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'cartscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Request sent to business. Please return to your cart.'
+
+<AdAddedSuccessfullyScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.get_possible_ads_advertiser()
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'You are successfully promoting this ad.'
+
+<AdAddedSuccessfullyCartScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.get_possible_ads_customer()
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Deal successfully added to cart.'
+
+<ServerErrorScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'mainacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'We are having difficulty contacting our server. Please try again. We apologize for the inconvenience.'
+
+<AddressErrorScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'mainacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'We are having difficulty finding ads near your address. Please contact our office. We apologize for the inconvenience.'
+
+<BusinessRegistrationSuccessfulScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Proceed'
+            on_release: app.root.current = 'businessaccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Business registration successful! Please proceed to your account page.'
+
+<AdRecordedScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Continue'
+            on_release: app.root.current = 'businessaccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Ad recorded. You will receive an invoice soon. Please continue to your account.'
+
+
+<AdvertiserRegistrationSuccessfulScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Proceed'
+            on_release: app.root.current = 'advertiseraccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Registration successful! Please proceed to your account page.'
+
+<CustomerRegistrationSuccessfulScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            text: 'Proceed'
+            on_release: app.root.current = 'customeraccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Registration successful! Please proceed to your account page.'
+
+<MainAcctScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsMainAcct
+
+<BusinessAccountScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        DropDown:
+            size: self.parent.size
+            Button:
+                text: 'Active Ads'
+                on_release: app.make_active_ads_screen()
+            Button:
+                text: 'Create an Ad'
+                on_release: app.root.current = 'createadscreen'
+            Button:
+                text: 'History'
+                on_release: app.make_history_business()
+            Button:
+                text: 'Verify Coupons'
+                on_release: app.make_verify_coupons()
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'mainacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsBusinessAccount:
+            size: 400,200
+
+<CreateBusinessAccountScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'mainacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCreateBusinessAccount:
+            size: 400,200
+
+<AdvertiserAccountScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        DropDown:
+            size: self.parent.size
+            Button:
+                text: 'Start New Ad'
+                on_release: app.get_possible_ads_advertiser()
+            Button:
+                text: 'Current Ads'
+                on_release: app.make_current_ads_screen()
+            Button:
+                text: 'History'
+                on_release: app.make_history_advertiser()
+            Button:
+                text: 'Cash Out'
+                on_release: app.verify_20_advertiser()
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'mainacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsAdvertiserAccount:
+            size: 400,200
+
+<CreateAdvertiserAccountScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'mainacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCreateAdvertiserAccount:
+            size: 400,200
+
+<CashOutCustomerScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'customeraccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCashOutCustomer:
+            size: 400,200
+
+
+<CashOutAdvertiserScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'advertiseraccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCashOutAdvertiser:
+            size: 400,200
+
+
+<CashOutRequestSubmittedCustomerScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            text: 'Continue'
+            on_release: app.root.current = 'customeraccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Request submitted. You will receive your money in a few days. Please continue to your account page.'
+
+<CashOutRequestSubmittedAdvertiserScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            text: 'Continue'
+            on_release: app.root.current = 'advertiseraccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Request submitted. You will receive your money in a few days. Please continue to your account page.'
+
+
+<NotEnoughFundsToCashOutCustomerScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'customeraccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'You must have at least $20 to cash out.'
+
+<NotEnoughFundsToCashOutAdvertiserScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'advertiseraccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'You must have at least $20 to cash out.'
+
+<CustomerHistoryScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'customeraccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCustomerHistory:
+            size: 400,200
+
+<AdvertiserHistoryScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'advertiseraccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsAdvertiserHistory:
+            size: 400,200
+
+<BusinessHistoryScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'businessaccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsBusinessHistory:
+            size: 400,200
+
+<CurrentAdsScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'advertiseraccountscreen'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Next 10'
+            on_release: app.next_10_current()
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Previous 10'
+            on_release: app.prev_10_current()
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCurrentAds:
+            size: 400,400
+
+<CartScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'customeraccountscreen'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Next 10'
+            on_release: app.next_10()
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Previous 10'
+            on_release: app.prev_10()
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCart:
+            size: 400,400
+
+<VerifyCouponsScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'businessaccountscreen'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Next 10'
+            on_release: app.next_10_verify()
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Previous 10'
+            on_release: app.prev_10_verify()
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsVerifyCoupons:
+            size: 400,400
+
+<ActiveAdsScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'businessaccountscreen'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Next 10'
+            on_release: app.next_10_active()
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Previous 10'
+            on_release: app.prev_10_active()
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsActiveAds:
+            size: 400,400
+
+<PossibleAdsScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'advertiseraccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'top'
+        size: self.parent.size
+        AuxWidgetsPossibleAds:
+            size: 400,200
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Refresh'
+            on_release: app.get_possible_ads_advertiser()
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsPossibleAds:
+            size: 400,400
+
+<SeeDealsScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'customeraccountscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'top'
+        size: self.parent.size
+        AuxWidgetsSeeDeals:
+            size: 400,200
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'bottom'
+        size: self.parent.size
+        Button:
+            text: 'Refresh'
+            on_release: app.get_possible_ads_customer()
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsSeeDeals:
+            size: 400,400
+
+<CustomerAccountScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        DropDown:
+            size: self.parent.size
+            Button:
+                text: 'See Deals'
+                on_release: app.get_possible_ads_customer()
+            Button:
+                text: 'Cart'
+                on_release: app.make_cart_screen()
+            Button:
+                text: 'History'
+                on_release: app.make_history_customer()
+            Button:
+                text: 'Cash Out'
+                on_release: app.verify_20_customer()
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            text: 'Back'
+            on_release: app.root.current = 'mainacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCustomerAccount:
+            size: 400,200
+
+<CreateCustomerAccountScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'mainacctscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        MainWidgetsCreateCustomerAccount:
+            size: 400,200
+
+<InvalidCredentialsScreen>:
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size: self.parent.size
+        Button:
+            id: createacct_back
+            text: 'Back'
+            on_release: app.root.current = 'loginscreen'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'Invalid login credentials. Please try again.'
+
+<MADApp>:
+    FloatLayout:
+        LoginScreen:
+            center: 0.5, 0.5
+
+<exApp>:
+    FloatLayout:
+        BadServerErrorScreen:
+            center: 0.5, 0.5
+
+<BadServerErrorScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: self.parent.size
+        Label:
+            text: 'We are having difficulty contacting our server. Please close the app and try again. We apologize for the inconvenience.'
