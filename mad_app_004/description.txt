@@ -1,0 +1,3 @@
+Version Created 20180817 by CDK. This version requires PyMySQL: python -m pip install PyMySQL. 
+
+If you get a server error, this actually could be any error. Note what you were trying to do and CDK will debug it. 
